@@ -1,0 +1,7 @@
+{
+   "name": "aws/sqs-labs",
+   "require": {
+      "aws/aws-sdk-php": "^3.183",
+      "vlucas/phpdotenv": "^5.3"
+   }
+}
