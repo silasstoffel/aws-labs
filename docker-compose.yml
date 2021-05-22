@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  web-server:
+    build: .
+    container_name: "web-server-aws-sqs"
+    ports:
+      - "8888:80"
+    volumes:
+      - ./:/var/www
+    environment:
+      PHP_EXTENSION_PDO_SQLITE: 1
+      PHP_INI_ERROR_REPORTING: 1
+    networks: 
+      - aws-sqs-network   
+
+networks:
+   aws-sqs-network:
+      driver: bridge 
