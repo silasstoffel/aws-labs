@@ -16,9 +16,6 @@ $clientConfig = [
 try {
     $client = new SqsClient($clientConfig);
     $result = $client->listQueues();
-    echo '<pre>';
-    var_dump($result);
-    echo '</pre>';
     foreach ($result->get('QueueUrls') as $queueUrl) {
         echo "$queueUrl<br/>";
     }
