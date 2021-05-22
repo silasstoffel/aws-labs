@@ -2,6 +2,8 @@
    "name": "aws/sqs-labs",
    "require": {
       "aws/aws-sdk-php": "^3.183",
-      "vlucas/phpdotenv": "^5.3"
+      "vlucas/phpdotenv": "^5.3",
+      "ramsey/uuid": "^4.1",
+      "fzaninotto/faker": "^1.5"
    }
 }
