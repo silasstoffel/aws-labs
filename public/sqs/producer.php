@@ -13,7 +13,7 @@ if (is_null($queueUrl)) {
     throw new InvalidArgumentException('Set value in AWS_SQS_QUEUE_ADD_CUSTOMER in .env file.');
 }
 
-$attribuites = [
+$attributes = [
     'Title'  => [
         'DataType'    => 'String',
         'StringValue' => 'Create Customer',
@@ -52,14 +52,27 @@ $customer = [
 $message = [
     'DelaySeconds'       => 10,
     'QueueUrl'           => $queueUrl,
-    'MessageAttribuites' => $attribuites, // optional
+    'MessageAttributes' => $attributes, // optional
     'MessageBody'        => json_encode($customer),
 ];
 
 try {
     $client = new SqsClient($clientConfig);
     $result = $client->sendMessage($message);
-    var_dump($result);
+
+    echo 'Message ID: ' . $result->get('MessageId');
+    echo '<hr/>';
+
+    echo 'MD5OfMessageBody: ' . $result->get('MD5OfMessageBody');
+    echo '<hr/>';
+
+    $metadata = $result->get('@metadata');
+    echo 'Metadata';
+
+    echo '<pre>';
+    var_dump($metadata);
+    echo '</pre>';
+
 } catch (AwsException $e) {
     echo $e->getMessage();
 }
