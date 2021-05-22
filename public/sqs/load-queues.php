@@ -5,13 +5,7 @@ require '../../vendor/autoload.php';
 use Aws\Exception\AwsException;
 use Aws\Sqs\SqsClient;
 
-$credentials = require '../../config/aws-credencials.php';
-
-$clientConfig = [
-    'region'      => 'sa-east-1',
-    'version'     => 'latest',
-    'credentials' => $credentials,
-];
+$clientConfig = require '../../config/aws-sdk.php';
 
 try {
     $client = new SqsClient($clientConfig);
