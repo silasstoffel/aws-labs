@@ -76,3 +76,7 @@ try {
 } catch (AwsException $e) {
     echo $e->getMessage();
 }
+
+echo '<hr/>';
+
+echo '<a href="/sqs/consumer.php">Load message</a>';
