@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use Aws\Exception\AwsException;
 use Aws\Sqs\SqsClient;
 
+// https://docs.aws.amazon.com/pt_br/sdk-for-php/v3/developer-guide/sqs-examples-send-receive-messages.html
+
 $clientConfig = require '../../config/aws-sdk.php';
 
 $queueUrl = $_ENV['AWS_SQS_QUEUE_ADD_CUSTOMER'] ?? null;
@@ -28,14 +30,16 @@ try {
     $result   = $client->receiveMessage($configReceive);
     $messages = $result->get('Messages');
     if (!empty($messages)) {
-        $results = [];
+        $results    = [];
+        $deleteInfo = [
+            'QueueUrl'      => $queueUrl,
+            'ReceiptHandle' => null,
+        ];
         foreach ($messages as $message) {
             $results[] = json_decode($message['Body']);
-            // Delete
-            $result = $client->deleteMessage([
-                'QueueUrl'      => $queueUrl,
-                'ReceiptHandle' => $message['ReceiptHandle'],
-            ]);
+            $deleteInfo['ReceiptHandle'] = $message['ReceiptHandle'];
+            // Delete Sync
+            $result = $client->deleteMessage($deleteInfo);
         }
         http_response_code(200);
         echo json_encode($results);

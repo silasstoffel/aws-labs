@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use Aws\Exception\AwsException;
 use Aws\Sqs\SqsClient;
 
+// https://docs.aws.amazon.com/pt_br/sdk-for-php/v3/developer-guide/sqs-examples-send-receive-messages.html
+
 $clientConfig = require '../../config/aws-sdk.php';
 
 $queueUrl = $_ENV['AWS_SQS_QUEUE_ADD_CUSTOMER'] ?? null;
